@@ -1,0 +1,25 @@
+{
+  "name": "zid-minimal-sample",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "author": "Zid App Market ( ZAM )",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "dev": "ts-node src/server.ts",
+    "serve": "node dist/server.js",
+    "start": "npm run build && npm run serve",
+    "test": "jest",
+    "watch-ts": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.14",
+    "eslint": "^7.16.0",
+    "jest": "^26.6.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.1.3"
+  }
+}
