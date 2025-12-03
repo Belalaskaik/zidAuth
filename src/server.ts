@@ -9,10 +9,12 @@ const sendJson = (res: ServerResponse, statusCode: number, payload: unknown) => 
     res.end(JSON.stringify(payload));
 };
 
+const CALLBACK_PATH = process.env.ZID_CALLBACK_PATH || '/zid/auth/callback';
+
 const handleRedirect = (res: ServerResponse) => {
     const queries = new URLSearchParams({
         client_id: process.env.ZID_CLIENT_ID || '',
-        redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
+        redirect_uri: `${process.env.MY_BACKEND_URL}${CALLBACK_PATH}`,
         response_type: 'code',
     });
 
@@ -66,12 +68,12 @@ const server = createServer(async (req: IncomingMessage, res: ServerResponse) =>
 
     const url = new URL(req.url, `http://${req.headers.host}`);
 
-    if (req.method === 'GET' && url.pathname === '/zid/auth/redirect') {
+    if (req.method === 'GET' && (url.pathname === '/zid/auth/redirect' || url.pathname === '/auth/zid')) {
         handleRedirect(res);
         return;
     }
 
-    if (req.method === 'GET' && url.pathname === '/zid/auth/callback') {
+    if (req.method === 'GET' && (url.pathname === '/zid/auth/callback' || url.pathname === '/auth/zid/callback')) {
         await handleCallback(req, res, url);
         return;
     }
