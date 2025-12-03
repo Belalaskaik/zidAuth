@@ -6,6 +6,8 @@ interface TokenResponse {
     refresh_token: string;
 }
 
+const CALLBACK_PATH = process.env.ZID_CALLBACK_PATH || '/zid/auth/callback';
+
 export class ZidApiService {
     private static postJson<T>(url: string, body: Record<string, unknown>): Promise<T> {
         return new Promise((resolve, reject) => {
@@ -85,7 +87,7 @@ export class ZidApiService {
             grant_type: 'authorization_code',
             client_id: process.env.ZID_CLIENT_ID,
             client_secret: process.env.ZID_CLIENT_SECRET,
-            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
+            redirect_uri: `${process.env.MY_BACKEND_URL}${CALLBACK_PATH}`,
             code,
         };
 
