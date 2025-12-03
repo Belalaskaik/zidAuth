@@ -10,6 +10,7 @@
     "dev": "ts-node src/server.ts",
     "serve": "node dist/server.js",
     "start": "npm run build && npm run serve",
+    "postinstall": "npm run build",
     "test": "jest",
     "watch-ts": "tsc --watch"
   },
